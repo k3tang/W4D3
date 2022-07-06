@@ -1,0 +1,9 @@
+require_relative "player.rb"
+class Human_Player < Player
+    def initialize(color,display)
+        super
+    end
+    
+    def make_move
+    end
+end
