@@ -43,24 +43,32 @@ class Board
 
     def [](pos)
         
-        self.board[pos[0]][pos[-1]]
+        @board[pos[0]][pos[-1]]
     end
 
     def []=(pos,val)
-        self.board[pos] = val
+
+       @board[pos[0]][pos[-1]] = val
     end
 
     def move_piece(start_pos,end_pos)
 
-        unless valid_moves.include?(end_pos) && !self.board[start_pos].is_a?(NullPiece)
-            raise "Uh oh, you can't move there"
-        end
+        # unless valid_moves.include?(end_pos) && !self.board[start_pos].is_a?(NullPiece)
+        #     raise "Uh oh, you can't move there"
+        # end
 
-        piece = self.board[start_pos]
-       self.board[end_pos] = piece
-       self.board[start_pos] = @null_piece
+        piece = self[start_pos]
+       self[end_pos] = piece
+       self[start_pos] = NullPiece.instance
 
     end
+
+
+    def empty?(pos)
+            return true if self[pos] == NullPiece.instance
+            false
+    end
+
 
     def each(&prc)
         count = 0
@@ -70,14 +78,42 @@ class Board
         end
         self
     end
+
+    def render
+        @board.each do |row|
+            print "\n"
+            row.each { |square|  print square.symbol }
+            
+        end
+        return true
+    end
   
+    
  
 end 
 
 
 #compute move method pass in the object type  and that information from queen. 
 #check if move is valid or not 
+require "byebug"
+# debugger
+b = Board.new
+b.populate
+b.render
+puts 
+b.move_piece([1,0],[5,0])
+b.render
+puts 
+puts b[[0,0]]
 
+rook = b[[0,0]]
+print rook.position
+puts rook.color
+p rook.moves
 
+b.move_piece([0,4],[3,4])
+puts b.render
+queen  = b[[3,4]]
+p queen.moves
 
 

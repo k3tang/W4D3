@@ -5,7 +5,7 @@
 
 class Piece 
 
-    attr_accessor :symbol
+    attr_accessor :symbol, :color
 
     def initialize(color, board, position)
         @color = color
@@ -25,10 +25,7 @@ class Piece
     # end 
 
 
-    def valid_moves #needs to come from child, should return an array of valid moves 
-        moves.reject{|end_pos| move_into_check?(end_pos)}
- 
-    end 
+  
 
 
     def pos=(val)
